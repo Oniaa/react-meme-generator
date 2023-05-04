@@ -38,6 +38,11 @@ export default function Meme() {
         />
         <button>Generate Meme</button>
       </form>
+      <div>
+        <img data-test-id="meme-image" src={randomImage} alt="random meme" />
+        <h2 className="top">{inputText.topText}</h2>
+        <h2 className="bottom">{inputText.bottomText}</h2>
+      </div>
     </div>
   );
 }
