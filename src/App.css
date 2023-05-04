@@ -1,3 +1,16 @@
 .App {
-  text-align: center;
+  width: 100vh;
+  height: 100vh;
+}
+
+.memeLogo {
+  height: 100px;
+}
+
+Header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #d5f1ff;
+  padding: 6px 33px;
 }
