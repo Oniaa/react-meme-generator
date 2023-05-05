@@ -1,23 +1,46 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function Meme() {
   const [inputText, setInputText] = useState({
     topText: '',
     bottomText: '',
   });
+
   const [randomImage, setRandomImage] = useState(
     'https://api.memegen.link/images/buzz/memes/memes_everywhere.gif',
   );
-  const preventSubmit = (event) => {
-    event.preventDefault();
-  };
 
-  const handleChange = (event) => {
+  function preventSubmit(event) {
+    event.preventDefault();
+  }
+
+  function handleInputChange(event) {
     setInputText({
       ...inputText,
       [event.currentTarget.name]: event.currentTarget.value,
     });
-  };
+  }
+
+  const [templates, setTemplates] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch('https://api.memegen.link/templates');
+      const data = await response.json();
+      setTemplates(data);
+      for (let i = 0; i < data.length; i++) {
+        console.log(data[i].blank);
+      }
+    }
+    fetchData();
+  }, []);
+
+  /* function getRandomMeme() {
+  const randomNumber = Math.floor(Math.random() * templates.length);
+    let randomMemeURL = templates[randomNumber].templates.id.templates.blank;
+    setTemplates(randomMemeURL);
+  }
+  console.log(templates); */
 
   return (
     <div className="meme-container">
@@ -27,14 +50,14 @@ export default function Meme() {
           id="topText"
           name="topText"
           value={inputText.topText}
-          onChange={handleChange}
+          onChange={handleInputChange}
         />
         <label htmlFor="bottomText">Bottom Text</label>
         <input
           id="bottomText"
           name="bottomText"
           value={inputText.bottomText}
-          onChange={handleChange}
+          onChange={handleInputChange}
         />
         <button>Generate Meme</button>
       </form>
