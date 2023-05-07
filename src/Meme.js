@@ -7,7 +7,7 @@ export default function Meme(props) {
     'https://api.memegen.link/images/aag.png',
   );
   const [templates, setTemplates] = useState([]);
-  const [selectedTemplate, setSelectedTemplate] = useState('');
+  const [selectedTemplate, setSelectedTemplate] = useState(templates[0]);
 
   useEffect(() => {
     async function fetchData() {
@@ -21,6 +21,10 @@ export default function Meme(props) {
   }, []);
 
   useEffect(() => {
+    console.log(selectedTemplate);
+  });
+
+  useEffect(() => {
     setMemeUrl(
       `https://api.memegen.link/images/${selectedTemplate}/${encodeURIComponent(
         topText,
@@ -28,11 +32,15 @@ export default function Meme(props) {
     );
   }, [selectedTemplate, topText, bottomText]);
 
-  /*   useEffect(() => {
-    if (templates.length > 0) {
-      console.log(templates);
+  function handleKeyPress(event) {
+    if (event.key === 'Enter') {
+      const memeName = event.target.value;
+      const matchingTemplate = templates.find((template) =>
+        template.includes(memeName),
+      );
+      setSelectedTemplate(matchingTemplate);
     }
-  }); */
+  }
 
   return (
     <div className="meme-container">
@@ -67,6 +75,8 @@ export default function Meme(props) {
             </option>
           ))}
         </select>
+        <label htmlFor="searchMeme">Search Meme</label>
+        <input id="searchMeme" name="searchMeme" onKeyDown={handleKeyPress} />
       </form>
       <div>
         {!!memeUrl && (
