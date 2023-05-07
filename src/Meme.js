@@ -30,20 +30,6 @@ export default function Meme(props) {
     }
   }); */
 
-  function generateRandomMeme() {
-    if (templates.length > 0) {
-      const randNum = Math.floor(Math.random() * templates.length);
-      const randMeme = templates[randNum];
-      setRandomMeme(randMeme);
-      // console.log(randomMeme);
-    }
-  }
-  useEffect(() => {
-    if (templates.length > 0) {
-      generateRandomMeme();
-    }
-  }, [templates]);
-
   function handleSubmit(event) {
     event.preventDefault();
     const apiUrl = `https://api.memegen.link/images/${
@@ -69,7 +55,7 @@ export default function Meme(props) {
           value={bottomText}
           onChange={(event) => setBottomText(event.currentTarget.value)}
         />
-        <button onClick={generateRandomMeme}>Generate Meme</button>
+        <button>Generate Meme</button>
       </form>
       {randomMeme && (
         <div>
