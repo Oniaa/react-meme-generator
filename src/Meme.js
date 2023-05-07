@@ -3,7 +3,9 @@ import React, { useEffect, useState } from 'react';
 export default function Meme(props) {
   const [topText, setTopText] = useState('');
   const [bottomText, setBottomText] = useState('');
-  const [memeUrl, setMemeUrl] = useState('');
+  const [memeUrl, setMemeUrl] = useState(
+    'https://api.memegen.link/images/aag.png',
+  );
   const [templates, setTemplates] = useState([]);
   const [randomMeme, setRandomMeme] = useState(null);
 
@@ -33,9 +35,14 @@ export default function Meme(props) {
       const randNum = Math.floor(Math.random() * templates.length);
       const randMeme = templates[randNum];
       setRandomMeme(randMeme);
-      console.log(randomMeme);
+      // console.log(randomMeme);
     }
   }
+  useEffect(() => {
+    if (templates.length > 0) {
+      generateRandomMeme();
+    }
+  }, [templates]);
 
   function handleSubmit(event) {
     event.preventDefault();
