@@ -64,3 +64,35 @@ export default function Meme() {
     </div>
   );
 } */
+
+/*   function putImageText(event) {
+    setInputText((prevInputText) => {
+      return {
+        ...prevInputText,
+        [event.currentTarget.name]: event.currentTarget.value,
+      };
+    });
+  } */
+
+/*  useEffect(() => {
+    function generateRandomMeme() {
+      if (templates.length > 0) {
+        const randNum = Math.floor(Math.random() * templates.length);
+        const randMeme = templates[randNum];
+        setRandomMeme(randMeme);
+        // console.log(randMeme);
+      }
+    }
+    generateRandomMeme();
+  }, [templates]);
+ */
+/*  function preventSubmit(event) {
+    event.preventDefault();
+  } */
+
+/*   function handleSubmit(event) {
+    setTopText({
+      ...topText,
+      [event.currentTarget.name]: event.currentTarget.value,
+    });
+  } */

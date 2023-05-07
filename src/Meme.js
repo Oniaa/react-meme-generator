@@ -1,28 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
-export default function Meme() {
-  const [inputText, setInputText] = useState({
-    topText: '',
-    bottomText: '',
-  });
-
-  // const [randomImage, setRandomImage] = useState(
-  //   'https://api.memegen.link/images/buzz/memes/memes_everywhere.gif',
-  // );
-
-  function preventSubmit(event) {
-    event.preventDefault();
-  }
-
-  function handleInputChange(event) {
-    setInputText({
-      ...inputText,
-      [event.currentTarget.name]: event.currentTarget.value,
-    });
-  }
-
+export default function Meme(props) {
+  const [topText, setTopText] = useState('');
+  const [bottomText, setBottomText] = useState('');
+  const [memeUrl, setMemeUrl] = useState('');
   const [templates, setTemplates] = useState([]);
-  const [randomMeme, setRandomMeme] = useState('');
+  const [randomMeme, setRandomMeme] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -30,11 +13,11 @@ export default function Meme() {
       const data = await response.json();
       const memeArray = [];
       for (let i = 0; i < data.length; i++) {
-        memeArray.push(data[i].blank);
+        memeArray.push(data[i]);
       }
       setTemplates(memeArray);
-      //console.log(data[i].blank);
-      // console.log(templates);
+      // console.log(data[i].blank);
+      // console.log(memeArray);
     }
     fetchData();
   }, []);
@@ -45,52 +28,47 @@ export default function Meme() {
     }
   }); */
 
-  /*  useEffect(() => {
-    function generateRandomMeme() {
-      if (templates.length > 0) {
-        const randNum = Math.floor(Math.random() * templates.length);
-        const randMeme = templates[randNum];
-        setRandomMeme(randMeme);
-        // console.log(randMeme);
-      }
-    }
-    generateRandomMeme();
-  }, [templates]);
- */
-
   function generateRandomMeme() {
     if (templates.length > 0) {
       const randNum = Math.floor(Math.random() * templates.length);
       const randMeme = templates[randNum];
       setRandomMeme(randMeme);
-      // console.log(randMeme);
+      console.log(randomMeme);
     }
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    const apiUrl = `https://api.memegen.link/images/${
+      randomMeme.id
+    }/${encodeURIComponent(topText)}/${encodeURIComponent(bottomText)}.png`;
+    setMemeUrl(apiUrl);
   }
 
   return (
     <div className="meme-container">
-      <form onSubmit={preventSubmit}>
+      <form onSubmit={handleSubmit}>
         <label htmlFor="topText">Top Text</label>
         <input
           id="topText"
           name="topText"
-          value={inputText.topText}
-          onChange={handleInputChange}
+          value={topText}
+          onChange={(event) => setTopText(event.currentTarget.value)}
         />
         <label htmlFor="bottomText">Bottom Text</label>
         <input
           id="bottomText"
           name="bottomText"
-          value={inputText.bottomText}
-          onChange={handleInputChange}
+          value={bottomText}
+          onChange={(event) => setBottomText(event.currentTarget.value)}
         />
         <button onClick={generateRandomMeme}>Generate Meme</button>
       </form>
-      <div>
-        <img data-test-id="meme-image" src={randomMeme} alt="random meme" />
-        <h2 className="top">{inputText.topText}</h2>
-        <h2 className="bottom">{inputText.bottomText}</h2>
-      </div>
+      {randomMeme && (
+        <div>
+          <img data-test-id="meme-image" src={memeUrl} alt="random meme" />
+        </div>
+      )}
     </div>
   );
 }
