@@ -7,7 +7,7 @@ export default function Meme(props) {
     'https://api.memegen.link/images/aag.png',
   );
   const [templates, setTemplates] = useState([]);
-  const [randomMeme, setRandomMeme] = useState(null);
+  const [selectedTemplate, setSelectedTemplate] = useState('');
 
   useEffect(() => {
     async function fetchData() {
@@ -33,7 +33,7 @@ export default function Meme(props) {
   function handleSubmit(event) {
     event.preventDefault();
     const apiUrl = `https://api.memegen.link/images/${
-      randomMeme.id
+      selectedTemplate.id
     }/${encodeURIComponent(topText)}/${encodeURIComponent(bottomText)}.png`;
     setMemeUrl(apiUrl);
   }
@@ -55,13 +55,19 @@ export default function Meme(props) {
           value={bottomText}
           onChange={(event) => setBottomText(event.currentTarget.value)}
         />
-        <button>Generate Meme</button>
+        <label htmlFor="selectedTemplate">Meme Template</label>
+        <select
+          id="selectedTemplate"
+          value={selectedTemplate}
+          onChange={(event) => setSelectedTemplate(event.currentTarget.value)}
+        ></select>
       </form>
-      {randomMeme && (
-        <div>
-          <img data-test-id="meme-image" src={memeUrl} alt="random meme" />
-        </div>
-      )}
+      <div>
+        <img data-test-id="meme-image" src={memeUrl} alt="random meme" />
+      </div>
+      <div>
+        <button>Download</button>
+      </div>
     </div>
   );
 }
