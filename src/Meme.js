@@ -1,3 +1,4 @@
+import { saveAs } from 'file-saver';
 import React, { useEffect, useState } from 'react';
 
 export default function Meme(props) {
@@ -51,6 +52,16 @@ export default function Meme(props) {
     }
   }
 
+  /*  function downloadMeme() {
+    saveAs(`${memeUrl}${selectedTemplate}/${topText}/${bottomText}.jpg`);
+  } */
+  function downloadMeme() {
+    const fileName = 'meme.jpg';
+    const url = `https://api.memegen.link/images/${selectedTemplate}/${encodeURIComponent(
+      topText,
+    )}/${encodeURIComponent(bottomText)}.jpg`;
+    saveAs(url, fileName);
+  }
   return (
     <div className="meme-container">
       <form
@@ -93,7 +104,7 @@ export default function Meme(props) {
         )}
       </div>
       <div>
-        <button>Download</button>
+        <button onClick={downloadMeme}>Download</button>
       </div>
     </div>
   );
