@@ -25,10 +25,19 @@ export default function Meme(props) {
   });
 
   useEffect(() => {
+    let encodedTopText = encodeURIComponent(' ');
+    if (topText !== '') {
+      encodedTopText = encodeURIComponent(topText);
+    }
+
+    let encodedBottomText = encodeURIComponent(' ');
+    if (bottomText !== '') {
+      encodedBottomText = encodeURIComponent(bottomText);
+    }
     setMemeUrl(
       `https://api.memegen.link/images/${selectedTemplate}/${encodeURIComponent(
-        topText,
-      )}/${encodeURIComponent(bottomText)}.png`,
+        encodedTopText,
+      )}/${encodeURIComponent(encodedBottomText)}.png`,
     );
   }, [selectedTemplate, topText, bottomText]);
 
