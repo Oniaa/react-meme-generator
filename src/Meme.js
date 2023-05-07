@@ -13,33 +13,34 @@ export default function Meme(props) {
     async function fetchData() {
       const response = await fetch('https://api.memegen.link/templates');
       const data = await response.json();
-      setTemplates(data.map((template) => template.id));
-      // console.log(data[i].blank);
-      // console.log(templates);
+      setTemplates(data.slice(0, 100).map((template) => template.id));
+      setSelectedTemplate(data[0].id);
     }
+
     fetchData();
   }, []);
 
   useEffect(() => {
-    console.log(templates);
-  });
+    setMemeUrl(
+      `https://api.memegen.link/images/${selectedTemplate}/${encodeURIComponent(
+        topText,
+      )}/${encodeURIComponent(bottomText)}.png`,
+    );
+  }, [selectedTemplate, topText, bottomText]);
+
   /*   useEffect(() => {
     if (templates.length > 0) {
       console.log(templates);
     }
   }); */
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    const apiUrl = `https://api.memegen.link/images/${
-      selectedTemplate.id
-    }/${encodeURIComponent(topText)}/${encodeURIComponent(bottomText)}.png`;
-    setMemeUrl(apiUrl);
-  }
-
   return (
     <div className="meme-container">
-      <form onSubmit={handleSubmit}>
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+        }}
+      >
         <label htmlFor="topText">Top Text</label>
         <input
           id="topText"
@@ -55,21 +56,22 @@ export default function Meme(props) {
           onChange={(event) => setBottomText(event.currentTarget.value)}
         />
         <label htmlFor="selectedTemplate">Meme Template</label>
-        {/*  <select
+        <select
           id="selectedTemplate"
           value={selectedTemplate}
           onChange={(event) => setSelectedTemplate(event.currentTarget.value)}
         >
-          {' '}
-          {templates.map((templates) => (
-            <option key={templates} value={templates}>
-              {templates}
+          {templates.map((template) => (
+            <option key={template} value={template}>
+              {template}
             </option>
           ))}
-        </select> */}
+        </select>
       </form>
       <div>
-        <img data-test-id="meme-image" src={memeUrl} alt="random meme" />
+        {!!memeUrl && (
+          <img data-test-id="meme-image" src={memeUrl} alt="Generated meme" />
+        )}
       </div>
       <div>
         <button>Download</button>
