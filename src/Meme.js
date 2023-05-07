@@ -22,10 +22,6 @@ export default function Meme(props) {
   }, []);
 
   useEffect(() => {
-    console.log(selectedTemplate);
-  });
-
-  useEffect(() => {
     let encodedTopText = encodeURIComponent(' ');
     if (topText !== '') {
       encodedTopText = encodeURIComponent(topText);
@@ -52,11 +48,8 @@ export default function Meme(props) {
     }
   }
 
-  /*  function downloadMeme() {
-    saveAs(`${memeUrl}${selectedTemplate}/${topText}/${bottomText}.jpg`);
-  } */
   function downloadMeme() {
-    const fileName = 'meme.jpg';
+    const fileName = `${selectedTemplate}/${topText}/${bottomText}.jpg`;
     const url = `https://api.memegen.link/images/${selectedTemplate}/${encodeURIComponent(
       topText,
     )}/${encodeURIComponent(bottomText)}.jpg`;
