@@ -50,6 +50,10 @@ export default function Meme(props) {
     );
   }, [selectedTemplate, topText, bottomText]);
 
+  function clearSearchMeme(event) {
+    event.currentTarget.value = '';
+  }
+
   // When a name is typed in the searchbar + press enter it looks
   // for the matching template, If there is one, selectedTemplate is updated
   function handleKeyPress(event) {
@@ -105,7 +109,12 @@ export default function Meme(props) {
           ))}
         </select>
         <label htmlFor="searchMeme">Search Meme Template</label>
-        <input id="searchMeme" name="searchMeme" onKeyDown={handleKeyPress} />
+        <input
+          id="searchMeme"
+          name="searchMeme"
+          onClick={clearSearchMeme}
+          onKeyDown={handleKeyPress}
+        />
       </form>
       <div>
         {!!memeUrl && (
