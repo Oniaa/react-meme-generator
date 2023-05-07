@@ -13,17 +13,16 @@ export default function Meme(props) {
     async function fetchData() {
       const response = await fetch('https://api.memegen.link/templates');
       const data = await response.json();
-      const memeArray = [];
-      for (let i = 0; i < data.length; i++) {
-        memeArray.push(data[i]);
-      }
-      setTemplates(memeArray);
+      setTemplates(data.map((template) => template.id));
       // console.log(data[i].blank);
-      // console.log(memeArray);
+      // console.log(templates);
     }
     fetchData();
   }, []);
 
+  useEffect(() => {
+    console.log(templates);
+  });
   /*   useEffect(() => {
     if (templates.length > 0) {
       console.log(templates);
@@ -56,11 +55,18 @@ export default function Meme(props) {
           onChange={(event) => setBottomText(event.currentTarget.value)}
         />
         <label htmlFor="selectedTemplate">Meme Template</label>
-        <select
+        {/*  <select
           id="selectedTemplate"
           value={selectedTemplate}
           onChange={(event) => setSelectedTemplate(event.currentTarget.value)}
-        ></select>
+        >
+          {' '}
+          {templates.map((templates) => (
+            <option key={templates} value={templates}>
+              {templates}
+            </option>
+          ))}
+        </select> */}
       </form>
       <div>
         <img data-test-id="meme-image" src={memeUrl} alt="random meme" />
