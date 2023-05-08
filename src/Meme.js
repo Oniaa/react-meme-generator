@@ -69,10 +69,17 @@ export default function Meme() {
 
   // Download created Meme and saves it on local computer
   function downloadMeme() {
+    let url = `https://api.memegen.link/images/${selectedTemplate}.jpg`;
+    if (topText) {
+      url = `https://api.memegen.link/images/${selectedTemplate}/${topText}.jpg`;
+    }
+    if (bottomText) {
+      url = `https://api.memegen.link/images/${selectedTemplate}/_/${bottomText}.jpg`;
+    }
+    if (topText && bottomText) {
+      url = `https://api.memegen.link/images/${selectedTemplate}/${topText}/${bottomText}.jpg`;
+    }
     const fileName = `${selectedTemplate}/${topText}/${bottomText}.jpg`;
-    const url = `https://api.memegen.link/images/${selectedTemplate}/${encodeURIComponent(
-      topText,
-    )}/${encodeURIComponent(bottomText)}.jpg`;
     saveAs(url, fileName);
   }
 
@@ -109,7 +116,8 @@ export default function Meme() {
           }}
         >
           <label htmlFor="selectedTemplate">
-            Meme Template
+            Meme template
+            <br />
             <select
               id="selectedTemplate"
               value={selectedTemplate}
@@ -126,7 +134,7 @@ export default function Meme() {
           </label>
           <br />
           <label>
-            <strong>Search Meme Template</strong>
+            Search Meme template
             <input
               name="searchMeme"
               onClick={clearSearchMeme}
@@ -136,6 +144,7 @@ export default function Meme() {
           <br />
           <label>
             Top text
+            <br />
             <input
               name="topText"
               value={topText}
@@ -145,6 +154,7 @@ export default function Meme() {
           <br />
           <label>
             Bottom text
+            <br />
             <input
               name="bottomText"
               value={bottomText}
