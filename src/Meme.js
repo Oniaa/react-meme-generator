@@ -109,49 +109,48 @@ export default function Meme() {
           }}
         >
           <label htmlFor="selectedTemplate">
-            <strong>Meme Template</strong>
+            Meme Template
+            <select
+              id="selectedTemplate"
+              value={selectedTemplate}
+              onChange={(event) =>
+                setSelectedTemplate(event.currentTarget.value)
+              }
+            >
+              {templates.map((template) => (
+                <option key={`template-${template.id}`} value={template}>
+                  {template}
+                </option>
+              ))}
+            </select>
           </label>
-          <select
-            id="selectedTemplate"
-            value={selectedTemplate}
-            onChange={(event) => setSelectedTemplate(event.currentTarget.value)}
-          >
-            {templates.map((template) => (
-              <option key={`template-${template.id}`} value={template}>
-                {template}
-              </option>
-            ))}
-          </select>
           <br />
-          <label htmlFor="searchMeme">
+          <label>
             <strong>Search Meme Template</strong>
+            <input
+              name="searchMeme"
+              onClick={clearSearchMeme}
+              onKeyDown={handleKeyPress}
+            />
           </label>
-          <input
-            id="searchMeme"
-            name="searchMeme"
-            onClick={clearSearchMeme}
-            onKeyDown={handleKeyPress}
-          />
           <br />
-          <label htmlFor="topText">
-            <strong>Top Text</strong>
+          <label>
+            Top Text
+            <input
+              name="topText"
+              value={topText}
+              onChange={(event) => setTopText(event.currentTarget.value)}
+            />
           </label>
-          <input
-            id="topText"
-            name="topText"
-            value={topText}
-            onChange={(event) => setTopText(event.currentTarget.value)}
-          />
           <br />
-          <label htmlFor="bottomText">
-            <strong>Bottom Text</strong>
+          <label>
+            Bottom Text
+            <input
+              name="bottomText"
+              value={bottomText}
+              onChange={(event) => setBottomText(event.currentTarget.value)}
+            />
           </label>
-          <input
-            id="bottomText"
-            name="bottomText"
-            value={bottomText}
-            onChange={(event) => setBottomText(event.currentTarget.value)}
-          />
         </form>
         <div className="downloadbtn">
           <button onClick={downloadMeme}>Download</button>
