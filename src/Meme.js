@@ -54,28 +54,6 @@ export default function Meme() {
     setMemeUrl(url);
   }, [selectedTemplate, topText, bottomText]);
 
-  /*  useEffect(() => {
-    // To combat the too many redirect error because of the empty strings
-    // in toptext and bottom text
-    let encodedTopText = encodeURIComponent(' ');
-    if (topText !== '') {
-      encodedTopText = encodeURIComponent(topText);
-    }
-
-    let encodedBottomText = encodeURIComponent(' ');
-    if (bottomText !== '') {
-      encodedBottomText = encodeURIComponent(bottomText);
-    }
-
-    // Puts toptext and bottomtext to the selected template
-    // so it can be displayed and downloaded
-    setMemeUrl(
-      `https://api.memegen.link/images/${selectedTemplate}/${encodeURIComponent(
-        encodedTopText,
-      )}/${encodeURIComponent(encodedBottomText)}.png`,
-    );
-  }, [selectedTemplate, topText, bottomText]); */
-
   // Clears search Meme when clicked
   function clearSearchMeme(event) {
     event.currentTarget.value = '';
