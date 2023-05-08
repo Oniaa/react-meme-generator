@@ -50,6 +50,7 @@ export default function Meme(props) {
     );
   }, [selectedTemplate, topText, bottomText]);
 
+  // Clears search Meme when clicked
   function clearSearchMeme(event) {
     event.currentTarget.value = '';
   }
@@ -76,53 +77,97 @@ export default function Meme(props) {
   }
 
   return (
-    <div className="meme-container">
-      <form
-        onSubmit={(event) => {
-          event.preventDefault();
-        }}
-      >
-        <label htmlFor="topText">Top Text</label>
-        <input
-          id="topText"
-          name="topText"
-          value={topText}
-          onChange={(event) => setTopText(event.currentTarget.value)}
-        />
-        <label htmlFor="bottomText">Bottom Text</label>
-        <input
-          id="bottomText"
-          name="bottomText"
-          value={bottomText}
-          onChange={(event) => setBottomText(event.currentTarget.value)}
-        />
-        <label htmlFor="selectedTemplate">Meme Template</label>
-        <select
-          id="selectedTemplate"
-          value={selectedTemplate}
-          onChange={(event) => setSelectedTemplate(event.currentTarget.value)}
-        >
-          {templates.map((template) => (
-            <option key={template} value={template}>
-              {template}
-            </option>
-          ))}
-        </select>
-        <label htmlFor="searchMeme">Search Meme Template</label>
-        <input
-          id="searchMeme"
-          name="searchMeme"
-          onClick={clearSearchMeme}
-          onKeyDown={handleKeyPress}
-        />
-      </form>
-      <div>
-        {!!memeUrl && (
-          <img data-test-id="meme-image" src={memeUrl} alt="Generated meme" />
-        )}
+    <div className="memeContainer">
+      <div className="Text">
+        <h2>Create your own Meme</h2>
+        <ol>
+          <li>
+            Choose a meme template:
+            <br />
+            Select a meme template from the drop-down list or use the search bar
+            to find a specific template.
+          </li>
+          <li>
+            Add your text:
+            <br />
+            Type in the top and bottom text fields to add your own captions to
+            the meme.
+          </li>
+          <li>
+            Download the meme:
+            <br />
+            If you're happy with your meme, click on the "Download" button to
+            save it to your device.
+          </li>
+        </ol>
       </div>
-      <div>
-        <button onClick={downloadMeme}>Download</button>
+      <div className="formWrapper">
+        <form
+          className="formContainer"
+          onSubmit={(event) => {
+            event.preventDefault();
+          }}
+        >
+          <label htmlFor="selectedTemplate">
+            <strong>Meme Template</strong>
+          </label>
+          <select
+            id="selectedTemplate"
+            value={selectedTemplate}
+            onChange={(event) => setSelectedTemplate(event.currentTarget.value)}
+          >
+            {templates.map((template) => (
+              <option key={template} value={template}>
+                {template}
+              </option>
+            ))}
+          </select>
+          <br />
+          <label htmlFor="searchMeme">
+            <strong>Search Meme Template</strong>
+          </label>
+          <input
+            id="searchMeme"
+            name="searchMeme"
+            onClick={clearSearchMeme}
+            onKeyDown={handleKeyPress}
+          />
+          <br />
+          <label htmlFor="topText">
+            <strong>Top Text</strong>
+          </label>
+          <input
+            id="topText"
+            name="topText"
+            value={topText}
+            onChange={(event) => setTopText(event.currentTarget.value)}
+          />
+          <br />
+          <label htmlFor="bottomText">
+            <strong>Bottom Text</strong>
+          </label>
+          <input
+            id="bottomText"
+            name="bottomText"
+            value={bottomText}
+            onChange={(event) => setBottomText(event.currentTarget.value)}
+          />
+        </form>
+        <div className="downloadbtn">
+          <button onClick={downloadMeme}>Download</button>
+        </div>
+      </div>
+      <div className="rightSide">
+        <div className="meme">
+          {!!memeUrl && (
+            <img
+              style={{ width: 350 }}
+              data-test-id="meme-image"
+              src={memeUrl}
+              alt="Generated meme"
+            />
+          )}
+        </div>
       </div>
     </div>
   );

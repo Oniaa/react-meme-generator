@@ -1,6 +1,7 @@
-.App {
-  width: 100vh;
-  height: 100vh;
+* {
+  margin: 0;
+  padding: 0;
+  background-color: #d5f1ff;
 }
 
 .memeLogo {
@@ -11,6 +12,81 @@ Header {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #d5f1ff;
   padding: 6px 33px;
+}
+
+.memeContainer {
+  display: inline-flex;
+  gap: 50px;
+}
+
+h2 {
+  margin-bottom: 16px;
+  font-size: 1.5rem;
+}
+
+.Text {
+  width: 400px;
+  height: 300px;
+  margin-top: 6%;
+  padding: 30px;
+  line-height: 1.6;
+  font-size: 1rem;
+  border-style: solid;
+  border-width: thick;
+  border-color: #ffd3c8;
+  border-radius: 16px;
+}
+
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  height: 300px;
+  margin-top: 8%;
+  padding: 8px;
+  border-style: solid;
+  border-width: thick;
+  border-color: #0073cd;
+  border-radius: 16px;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 2%;
+}
+
+.rightSide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  border-style: solid;
+  border-width: thick;
+  border-color: #ffd3c8;
+  border-radius: 16px;
+  padding-top: 1%;
+  margin-top: 1%;
+}
+
+.meme img {
+  border-radius: 16px;
+}
+
+button {
+  background-color: #0073cd;
+  border: none;
+  color: white;
+  padding: 8px;
+  text-decoration: none;
+  margin: 6px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 150px;
 }
