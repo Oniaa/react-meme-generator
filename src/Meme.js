@@ -30,11 +30,9 @@ export default function Meme() {
   }, []);
 
   useEffect(() => {
-    const encodedTopText = encodeURIComponent(topText);
-    const encodedBottomText = encodeURIComponent(bottomText);
     // To combat the too many redirect error because of the empty strings
     // in toptext and bottom text
-    /*  let encodedTopText = encodeURIComponent(' ');
+    let encodedTopText = encodeURIComponent(' ');
     if (topText !== '') {
       encodedTopText = encodeURIComponent(topText);
     }
@@ -42,7 +40,7 @@ export default function Meme() {
     let encodedBottomText = encodeURIComponent(' ');
     if (bottomText !== '') {
       encodedBottomText = encodeURIComponent(bottomText);
-    } */
+    }
     // Puts toptext and bottomtext to the selected template
     // so it can be displayed and downloaded
     setMemeUrl(
