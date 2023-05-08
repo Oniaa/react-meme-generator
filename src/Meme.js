@@ -30,6 +30,31 @@ export default function Meme() {
   }, []);
 
   useEffect(() => {
+    let encodedTopText = encodeURIComponent(' ');
+    if (topText !== '') {
+      encodedTopText = encodeURIComponent(topText);
+    }
+
+    let encodedBottomText = encodeURIComponent(' ');
+    if (bottomText !== '') {
+      encodedBottomText = encodeURIComponent(bottomText);
+    }
+
+    let url = `https://api.memegen.link/images/${selectedTemplate}.jpg`;
+    if (topText && !bottomText) {
+      url = `https://api.memegen.link/images/${selectedTemplate}/${encodedTopText}.jpg`;
+    }
+    if (!topText && bottomText) {
+      url = `https://api.memegen.link/images/${selectedTemplate}/_/${encodedBottomText}.jpg`;
+    }
+    if (topText && bottomText) {
+      url = `https://api.memegen.link/images/${selectedTemplate}/${encodedTopText}/${encodedBottomText}.jpg`;
+    }
+
+    setMemeUrl(url);
+  }, [selectedTemplate, topText, bottomText]);
+
+  /*  useEffect(() => {
     // To combat the too many redirect error because of the empty strings
     // in toptext and bottom text
     let encodedTopText = encodeURIComponent(' ');
@@ -41,6 +66,7 @@ export default function Meme() {
     if (bottomText !== '') {
       encodedBottomText = encodeURIComponent(bottomText);
     }
+
     // Puts toptext and bottomtext to the selected template
     // so it can be displayed and downloaded
     setMemeUrl(
@@ -48,7 +74,7 @@ export default function Meme() {
         encodedTopText,
       )}/${encodeURIComponent(encodedBottomText)}.png`,
     );
-  }, [selectedTemplate, topText, bottomText]);
+  }, [selectedTemplate, topText, bottomText]); */
 
   // Clears search Meme when clicked
   function clearSearchMeme(event) {
