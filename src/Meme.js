@@ -135,7 +135,7 @@ export default function Meme() {
           </label>
           <br />
           <label>
-            Top Text
+            Top text
             <input
               name="topText"
               value={topText}
@@ -144,7 +144,7 @@ export default function Meme() {
           </label>
           <br />
           <label>
-            Bottom Text
+            Bottom text
             <input
               name="bottomText"
               value={bottomText}
