@@ -1,7 +1,7 @@
 import { saveAs } from 'file-saver';
 import React, { useEffect, useState } from 'react';
 
-export default function Meme(props) {
+export default function Meme() {
   const [topText, setTopText] = useState('');
   const [bottomText, setBottomText] = useState('');
   const [memeUrl, setMemeUrl] = useState(
@@ -10,20 +10,20 @@ export default function Meme(props) {
   const [templates, setTemplates] = useState([]);
   const [selectedTemplate, setSelectedTemplate] = useState(templates[0]);
 
-  // fechtes data from website use async and await to wait
-  // for the promise(successfully fetched or rejected)
+  // fetch data from website
   useEffect(() => {
-    async function fetchData() {
-      const response = await fetch('https://api.memegen.link/templates');
-      const data = await response.json();
+    function fetchData() {
+      fetch('https://api.memegen.link/templates')
+        .then((response) => response.json())
+        .then((data) => {
+          // takes the first 100 templates and put them in templates with setTemplates
+          setTemplates(data.slice(0, 100).map((template) => template.id));
 
-      // takes the first 100 templates and put them in templates with setTemplates
-      setTemplates(data.slice(0, 100).map((template) => template.id));
-
-      // The first Template is shown when selecting templates in the select option
-      setSelectedTemplate(data[0].id);
+          // The first Template is shown when selecting templates in the select option
+          setSelectedTemplate(data[0].id);
+        })
+        .catch((error) => console.error(error));
     }
-
     fetchData();
 
     // Empty Array is put so the code is only executed once
@@ -117,7 +117,7 @@ export default function Meme(props) {
             onChange={(event) => setSelectedTemplate(event.currentTarget.value)}
           >
             {templates.map((template) => (
-              <option key={template} value={template}>
+              <option key={`template-${template.id}`} value={template}>
                 {template}
               </option>
             ))}
